@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:fogonesiavic/provider/theme_provider.dart';
 import 'package:fogonesiavic/screens/home_page.dart';
 import 'package:fogonesiavic/theme/dark_mode.dart';
 import 'package:fogonesiavic/theme/light_mode.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => ThemeProvider(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -12,12 +19,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'FogonesIA',
-      //theme: lightMode,
-      theme: darkMode,
-      darkTheme: darkMode,
-      home: const HomePage(),
+    return Consumer<ThemeProvider>(
+      builder: (context, themeProvider, child) {
+        return MaterialApp(
+          title: 'FogonesIA',
+          theme: lightMode,
+          darkTheme: darkMode,
+          themeMode: themeProvider.themeMode,
+          home: const HomePage(),
+        );
+      },
     );
   }
 }

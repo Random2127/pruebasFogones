@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:fogonesiavic/provider/theme_provider.dart';
+import 'package:provider/provider.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context, listen: true);
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
@@ -21,6 +24,14 @@ class CustomDrawer extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.home),
             title: const Text('Light or dark mode'),
+            trailing: Switch(
+              value: themeProvider.isDarkMode,
+              onChanged: (value) {
+                themeProvider.setThemeMode(
+                  value ? ThemeMode.dark : ThemeMode.light,
+                );
+              },
+            ),
             onTap: () {
               Navigator.pop(context);
             },
