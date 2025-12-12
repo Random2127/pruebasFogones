@@ -7,6 +7,8 @@ import 'package:provider/provider.dart';
 
 void main() {
   runApp(
+    // I might need more than one provider class (MultiProvider)
+    // Need to add SharedPreferences
     ChangeNotifierProvider(
       create: (_) => ThemeProvider(),
       child: const MyApp(),
@@ -22,6 +24,7 @@ class MyApp extends StatelessWidget {
     return Consumer<ThemeProvider>(
       builder: (context, themeProvider, child) {
         return MaterialApp(
+          debugShowCheckedModeBanner: false,
           title: 'FogonesIA',
           theme: lightMode,
           darkTheme: darkMode,
